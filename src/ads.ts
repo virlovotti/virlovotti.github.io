@@ -27,6 +27,55 @@ export type HookAd = {
 
 export type Ad = ConversionAd | HookAd;
 
+export type Reading = { label: string; value: string; delta?: string };
+
+export const caseId = (ad: Ad) =>
+  ad.name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
+/** "2.33 (+75%)" → value "2.33", delta "+75%" (delta is vs account average). */
+export function splitDelta(raw: string): { value: string; delta?: string } {
+  const match = raw.match(/^(.*?)\s*\(([^)]+)\)$/);
+  return match ? { value: match[1], delta: match[2] } : { value: raw };
+}
+
+/** "CTR 2.02% (+57%)" → label "CTR"; "Hook rate 42%" → label "Hook rate". */
+export function labelledMetric(raw: string): Reading {
+  const match = raw.match(/^(\D+?)\s+([$\d].*)$/);
+  const label = match ? match[1] : "Result";
+  return { label, ...splitDelta(match ? match[2] : raw) };
+}
+
+/** "42,684 views" → label "Views", value "42,684". */
+export function countMetric(raw: string): Reading {
+  const match = raw.match(/^([\d.,]+)\s+(.+)$/);
+  if (!match) return { label: "Volume", value: raw };
+  const noun = match[2];
+  return { label: noun[0].toUpperCase() + noun.slice(1), value: match[1] };
+}
+
+export function readings(ad: Ad): Reading[] {
+  if (ad.type === "conversion") {
+    return [
+      { label: "ROAS", ...splitDelta(ad.roas) },
+      { label: "CPA", ...splitDelta(ad.cpa) },
+      { label: "Purchases", ...splitDelta(ad.purchases) },
+      { label: "CTR", ...splitDelta(ad.ctr) },
+    ];
+  }
+  return [labelledMetric(ad.mainMetric), countMetric(ad.volume)];
+}
+
+export const leadReading = (ad: Ad): Reading => readings(ad)[0];
+
+/** 108×192 downscale in public/ads/thumbs/ of the image or video poster. */
+export function thumbnail(ad: Ad): string | undefined {
+  const source = ad.media?.kind === "video" ? ad.media.poster : ad.media?.src;
+  return source?.replace(/^\/ads\/(.+)\.\w+$/, "/ads/thumbs/$1.jpg");
+}
+
 export const ads: Ad[] = [
   {
     type: "conversion",

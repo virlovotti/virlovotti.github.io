@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-22T19:55:00.000Z",
+  "title": "Design System: Virginia · Paid social creative",
+  "extensions": {
+    "world": {
+      "catalogId": "digital-design-canon-monochrome-product-marketing",
+      "name": "Monochrome Product Marketing",
+      "pinnedBy": "user"
+    },
+    "colorMeta": {
+      "chartreuse": { "role": "primary", "displayName": "Signal Chartreuse", "canonical": "#a6c23f", "cssVar": "--accent", "tonalRamp": ["oklch(25% 0.06 120)", "oklch(35% 0.09 120)", "oklch(46% 0.12 120)", "oklch(57% 0.14 120)", "oklch(68% 0.155 120)", "oklch(77% 0.16 120)", "oklch(87% 0.11 120)", "oklch(95% 0.05 120)"] },
+      "white": { "role": "neutral", "displayName": "White", "canonical": "#ffffff", "cssVar": "--n-white", "tonalRamp": ["#111111", "#333333", "#636363", "#a6a6a6", "#cfcfcf", "#e6e6e6", "#f2f2f2", "#ffffff"] },
+      "paper": { "role": "neutral", "displayName": "Paper", "canonical": "#fafafa", "cssVar": "--n-0", "tonalRamp": ["#111111", "#333333", "#636363", "#a6a6a6", "#cfcfcf", "#e6e6e6", "#f2f2f2", "#fafafa"] },
+      "mist": { "role": "neutral", "displayName": "Mist", "canonical": "#f2f2f2", "cssVar": "--n-1", "tonalRamp": ["#111111", "#333333", "#636363", "#a6a6a6", "#cfcfcf", "#e6e6e6", "#f2f2f2", "#fafafa"] },
+      "hairline": { "role": "neutral", "displayName": "Hairline", "canonical": "#e6e6e6", "cssVar": "--n-2", "tonalRamp": ["#111111", "#333333", "#636363", "#a6a6a6", "#cfcfcf", "#e6e6e6", "#f2f2f2", "#fafafa"] },
+      "rule-strong": { "role": "neutral", "displayName": "Strong Rule", "canonical": "#cfcfcf", "cssVar": "--n-3", "tonalRamp": ["#111111", "#333333", "#636363", "#a6a6a6", "#cfcfcf", "#e6e6e6", "#f2f2f2", "#fafafa"] },
+      "pewter": { "role": "neutral", "displayName": "Pewter", "canonical": "#a6a6a6", "cssVar": "--n-4", "tonalRamp": ["#111111", "#333333", "#636363", "#a6a6a6", "#cfcfcf", "#e6e6e6", "#f2f2f2", "#fafafa"] },
+      "graphite-muted": { "role": "neutral", "displayName": "Muted Graphite", "canonical": "#636363", "cssVar": "--n-5", "tonalRamp": ["#111111", "#333333", "#636363", "#a6a6a6", "#cfcfcf", "#e6e6e6", "#f2f2f2", "#fafafa"] },
+      "graphite": { "role": "neutral", "displayName": "Graphite", "canonical": "#333333", "cssVar": "--n-6", "tonalRamp": ["#111111", "#333333", "#636363", "#a6a6a6", "#cfcfcf", "#e6e6e6", "#f2f2f2", "#fafafa"] },
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#111111", "cssVar": "--n-7", "tonalRamp": ["#111111", "#333333", "#636363", "#a6a6a6", "#cfcfcf", "#e6e6e6", "#f2f2f2", "#fafafa"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headline only; balanced wrap." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles; balanced wrap." },
+      "title": { "displayName": "Title", "purpose": "Case names." },
+      "body-lg": { "displayName": "Body Large", "purpose": "Hero deck and section intros, 44–52ch, muted graphite." },
+      "body": { "displayName": "Body", "purpose": "Default copy in graphite." },
+      "body-sm": { "displayName": "Body Small", "purpose": "Index rows, taxonomy, reading-key definitions." },
+      "label": { "displayName": "Label", "purpose": "Tags, play control, metric labels, deltas, footer." },
+      "metric": { "displayName": "Metric", "purpose": "Metric values in panels, tabular numerals." }
+    },
+    "fonts": [
+      { "family": "Satoshi", "weight": 400, "src": "/fonts/Satoshi-Regular.woff2", "license": "public/fonts/Satoshi-LICENSE.txt (Fontshare FFL)" },
+      { "family": "Satoshi", "weight": 500, "src": "/fonts/Satoshi-Medium.woff2", "license": "public/fonts/Satoshi-LICENSE.txt (Fontshare FFL)" }
+    ],
+    "shadows": [
+      { "name": "ring", "value": "0 0 0 1px var(--n-2)", "purpose": "Edge of any lifted white surface or ground card." },
+      { "name": "card-rest", "value": "0 0 0 1px var(--n-2), 0 1px 2px rgb(17 17 17 / 0.04)", "purpose": "Case cards at rest." },
+      { "name": "card-arrived", "value": "0 0 0 1px var(--n-7), 0 18px 40px -20px rgb(17 17 17 / 0.3)", "purpose": "Case card reached via its anchor (:target)." },
+      { "name": "stage-float", "value": "0 0 0 1px var(--n-2), 0 2px 4px rgb(17 17 17 / 0.03), 0 32px 64px -32px rgb(17 17 17 / 0.28)", "purpose": "Case index floating on its stage." },
+      { "name": "screen", "value": "0 0 0 1px rgb(17 17 17 / 0.08), 0 1px 2px rgb(17 17 17 / 0.06), 0 12px 32px -12px rgb(17 17 17 / 0.28)", "purpose": "9:16 creative frame." },
+      { "name": "signal-halo", "value": "0 0 0 3px rgb(166 194 63 / 0.22)", "purpose": "Halo around a chartreuse marker." }
+    ],
+    "grounds": [
+      { "name": "case-ground", "value": "radial-gradient(120% 80% at 50% 8%, #fff 0%, var(--n-1) 58%, #e9e9e9 100%)", "purpose": "Lit ground behind each creative screen." },
+      { "name": "stage", "value": "radial-gradient(90% 70% at 70% 10%, #fff 0%, rgb(255 255 255 / 0) 70%), radial-gradient(120% 100% at 50% 100%, #e4e4e4 0%, var(--n-1) 60%)", "purpose": "Hero stage behind the case index." },
+      { "name": "hatch", "value": "repeating-linear-gradient(135deg, transparent 0 11px, rgb(17 17 17 / 0.035) 11px 12px), var(--n-1)", "purpose": "Empty media placeholder." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "The single easing curve for every transition (--ease-out)." },
+      { "name": "control", "value": "160ms", "purpose": "Button and play-control state changes." },
+      { "name": "link", "value": "140ms", "purpose": "Nav link color and index row hover." },
+      { "name": "arrive", "value": "240ms", "purpose": "Case card :target ring and tag-dot change." },
+      { "name": "rise", "value": "opacity 700ms, transform 900ms, translateY(24px), delay alternates 0/90ms", "purpose": "Cards entering the viewport; disabled under prefers-reduced-motion." }
+    ],
+    "breakpoints": [
+      { "name": "card-stack", "value": "560px" },
+      { "name": "nav-collapse", "value": "760px" },
+      { "name": "single-column", "value": "1080px" }
+    ],
+    "focus": { "value": "outline: 2px solid var(--n-7); outline-offset: 3px; border-radius: 6px", "purpose": "Global :focus-visible ring; index rows use outline-offset -2px." }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Solid ink contact action with a chartreuse dot that fills on hover.",
+      "html": "<a class=\"ds-btn ds-btn-primary\" href=\"#\"><span class=\"ds-btn-dot\" aria-hidden=\"true\"></span>Contact on LinkedIn</a>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 46px; padding: 0 20px; border: 1px solid var(--n-3); border-radius: 10px; font-family: Satoshi, ui-sans-serif, system-ui, sans-serif; font-size: 0.9375rem; font-weight: 500; color: var(--n-7); text-decoration: none; background: transparent; cursor: pointer; transition: background-color 160ms var(--ease-out), border-color 160ms var(--ease-out), transform 160ms var(--ease-out); } .ds-btn:active { transform: translateY(1px); } .ds-btn:focus-visible { outline: 2px solid var(--n-7); outline-offset: 3px; } .ds-btn-primary { border-color: var(--n-7); color: var(--n-0); background: var(--n-7); } .ds-btn-primary:hover { border-color: #000; background: #000; } .ds-btn-dot { width: 12px; height: 12px; border: 2px solid var(--accent); border-radius: 50%; transition: background-color 160ms var(--ease-out); } .ds-btn-primary:hover .ds-btn-dot { background: var(--accent); }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Default control: transparent with a strong-rule border and a trailing arrow that nudges on hover.",
+      "html": "<a class=\"ds-btn-ghost\" href=\"#\">See the cases<svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" aria-hidden=\"true\"><path d=\"M3 8h10M9 4l4 4-4 4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></a>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 46px; padding: 0 20px; border: 1px solid var(--n-3); border-radius: 10px; font-family: Satoshi, ui-sans-serif, system-ui, sans-serif; font-size: 0.9375rem; font-weight: 500; color: var(--n-7); text-decoration: none; background: transparent; cursor: pointer; transition: background-color 160ms var(--ease-out), border-color 160ms var(--ease-out), transform 160ms var(--ease-out); } .ds-btn-ghost svg { flex: none; transition: transform 200ms var(--ease-out); } .ds-btn-ghost:hover { border-color: var(--n-7); background: var(--n-white); } .ds-btn-ghost:hover svg { transform: translateX(2px); } .ds-btn-ghost:active { transform: translateY(1px); } .ds-btn-ghost:focus-visible { outline: 2px solid var(--n-7); outline-offset: 3px; }"
+    },
+    {
+      "name": "Type Tag",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "Pill naming the ad's job; solid dot for conversion, hollow ring for hook.",
+      "html": "<span class=\"ds-tag\">Conversion</span> <span class=\"ds-tag ds-tag-hook\">Hook</span> <span class=\"ds-tag ds-tag-arrived\">Conversion</span>",
+      "css": ".ds-tag { display: inline-flex; align-items: center; gap: 7px; height: 26px; padding: 0 10px; border: 1px solid var(--n-3); border-radius: 999px; font-family: Satoshi, ui-sans-serif, system-ui, sans-serif; font-size: 0.8125rem; font-weight: 500; color: var(--n-7); background: var(--n-white); } .ds-tag::before { content: \"\"; width: 6px; height: 6px; border-radius: 50%; background: var(--n-7); transition: background-color 240ms var(--ease-out), box-shadow 240ms var(--ease-out); } .ds-tag-hook::before { background: transparent; box-shadow: inset 0 0 0 1.5px var(--n-7); } .ds-tag-arrived::before { background: var(--accent); box-shadow: 0 0 0 3px rgb(166 194 63 / 0.22); }"
+    },
+    {
+      "name": "Top Navigation",
+      "kind": "nav",
+      "refersTo": "button-ghost-compact",
+      "description": "Wordmark, muted text links, and a compact ghost CTA.",
+      "html": "<header class=\"ds-nav\"><a class=\"ds-nav-mark\" href=\"#\"><svg viewBox=\"0 0 20 20\" width=\"20\" height=\"20\" aria-hidden=\"true\"><rect x=\"0.75\" y=\"0.75\" width=\"18.5\" height=\"18.5\" rx=\"5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/><path d=\"M5.5 6 10 14.5 14.5 6\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>Virginia</a><nav class=\"ds-nav-links\"><a href=\"#\">Cases</a><a href=\"#\">How to read the numbers</a></nav><a class=\"ds-nav-cta\" href=\"#\">LinkedIn</a></header>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 32px; height: 84px; font-family: Satoshi, ui-sans-serif, system-ui, sans-serif; } .ds-nav-mark { display: inline-flex; align-items: center; gap: 10px; font-size: 1.125rem; font-weight: 500; letter-spacing: -0.01em; color: var(--n-7); text-decoration: none; } .ds-nav-links { display: flex; gap: 28px; margin-left: auto; font-size: 0.9375rem; } .ds-nav-links a { color: var(--n-5); text-decoration: none; transition: color 140ms var(--ease-out); } .ds-nav-links a:hover { color: var(--n-7); } .ds-nav a:focus-visible { outline: 2px solid var(--n-7); outline-offset: 3px; border-radius: 6px; } .ds-nav-cta { display: inline-flex; align-items: center; height: 38px; padding: 0 14px; border: 1px solid var(--n-3); border-radius: 10px; font-size: 0.875rem; font-weight: 500; color: var(--n-7); text-decoration: none; transition: background-color 160ms var(--ease-out), border-color 160ms var(--ease-out); } .ds-nav-cta:hover { border-color: var(--n-7); background: var(--n-white); }"
+    },
+    {
+      "name": "Case Card",
+      "kind": "card",
+      "refersTo": "case-card",
+      "description": "Creative screen on a lit ground beside its name, tag, taxonomy and metric panel; lifts with an ink ring when arrived.",
+      "html": "<article class=\"ds-case\"><div class=\"ds-case-ground\"><div class=\"ds-screen\"></div></div><div class=\"ds-case-body\"><h3 class=\"ds-case-name\">The Sign</h3><div class=\"ds-case-meta\"><span class=\"ds-case-tag\">Conversion</span><span class=\"ds-case-tax\">Segment · Angle · Awareness</span></div><dl class=\"ds-panel\"><div class=\"ds-panel-row\"><dt>ROAS</dt><dd>2.33<span class=\"ds-delta\">(+75%)</span></dd></div><div class=\"ds-panel-row\"><dt>Days on air</dt><dd>12</dd></div></dl></div></article>",
+      "css": ".ds-case { display: grid; grid-template-columns: minmax(150px, 42%) 1fr; gap: 24px; max-width: 560px; padding: 12px; border-radius: 20px; background: var(--n-white); box-shadow: 0 0 0 1px var(--n-2), 0 1px 2px rgb(17 17 17 / 0.04); font-family: Satoshi, ui-sans-serif, system-ui, sans-serif; transition: box-shadow 240ms var(--ease-out); } .ds-case:hover { box-shadow: 0 0 0 1px var(--n-7), 0 18px 40px -20px rgb(17 17 17 / 0.3); } .ds-case-ground { display: grid; place-items: center; padding: 22px; border-radius: 12px; background: radial-gradient(120% 80% at 50% 8%, #fff 0%, var(--n-1) 58%, #e9e9e9 100%); } .ds-screen { width: 100%; aspect-ratio: 9 / 16; border-radius: 14px; background: var(--n-1); box-shadow: 0 0 0 1px rgb(17 17 17 / 0.08), 0 1px 2px rgb(17 17 17 / 0.06), 0 12px 32px -12px rgb(17 17 17 / 0.28); } .ds-case-body { display: flex; flex-direction: column; padding: 12px 12px 12px 0; } .ds-case-name { margin: 0; font-size: 1.375rem; font-weight: 500; line-height: 1.15; letter-spacing: -0.02em; color: var(--n-7); } .ds-case-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 14px 0 28px; font-size: 0.875rem; color: var(--n-5); } .ds-case-tag { display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border: 1px solid var(--n-3); border-radius: 999px; font-size: 0.8125rem; font-weight: 500; color: var(--n-7); } .ds-panel { margin: auto 0 0; } .ds-panel-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid var(--n-2); } .ds-panel dt { font-size: 0.8125rem; color: var(--n-5); } .ds-panel dd { margin: 0; font-size: 1rem; font-weight: 500; color: var(--n-7); font-variant-numeric: tabular-nums; } .ds-delta { margin-left: 6px; font-size: 0.8125rem; font-weight: 400; color: var(--n-5); }"
+    },
+    {
+      "name": "Case Index",
+      "kind": "custom",
+      "refersTo": "case-index",
+      "description": "Floating white table of every case, each row an anchor to its card.",
+      "html": "<figure class=\"ds-index\"><figcaption class=\"ds-index-bar\"><span>Dr. Woof · paid social</span><span class=\"ds-muted\">5 conversion · 2 hook</span></figcaption><a class=\"ds-index-row\" href=\"#\"><span class=\"ds-index-thumb\"></span><span class=\"ds-index-name\">The Sign</span><span class=\"ds-muted\">ROAS 2.33 (+75%)</span><span class=\"ds-num\">12</span></a><a class=\"ds-index-row\" href=\"#\"><span class=\"ds-index-thumb\"></span><span class=\"ds-index-name\">The Shower</span><span class=\"ds-muted\">CTR 2.02%</span><span class=\"ds-num\">34</span></a></figure>",
+      "css": ".ds-index { margin: 0; max-width: 520px; overflow: hidden; border-radius: 18px; background: var(--n-white); box-shadow: 0 0 0 1px var(--n-2), 0 2px 4px rgb(17 17 17 / 0.03), 0 32px 64px -32px rgb(17 17 17 / 0.28); font-family: Satoshi, ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; } .ds-index-bar { display: flex; justify-content: space-between; gap: 16px; padding: 16px 20px; border-bottom: 1px solid var(--n-2); font-weight: 500; color: var(--n-7); } .ds-muted { color: var(--n-5); font-weight: 400; font-variant-numeric: tabular-nums; } .ds-index-row { display: grid; grid-template-columns: 27px minmax(0, 1fr) auto 32px; align-items: center; gap: 12px; min-height: 64px; padding: 0 20px; color: var(--n-6); text-decoration: none; border-top: 1px solid var(--n-1); transition: background-color 140ms var(--ease-out); } .ds-index-row:hover { background: var(--n-0); } .ds-index-row:focus-visible { outline: 2px solid var(--n-7); outline-offset: -2px; } .ds-index-thumb { width: 27px; height: 48px; border-radius: 4px; background: repeating-linear-gradient(135deg, transparent 0 5px, rgb(17 17 17 / 0.06) 5px 6px), var(--n-1); box-shadow: 0 0 0 1px rgb(17 17 17 / 0.08); } .ds-index-name { font-weight: 500; color: var(--n-7); } .ds-num { text-align: right; font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Play Control",
+      "kind": "button",
+      "refersTo": "play-control",
+      "description": "Frosted pill over a video screen that starts inline playback.",
+      "html": "<button class=\"ds-play\" type=\"button\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" aria-hidden=\"true\"><path d=\"M5 3.5v9l7-4.5-7-4.5Z\" fill=\"currentColor\"/></svg><span>Play ad</span></button>",
+      "css": ".ds-play { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px 0 10px; border: 1px solid rgb(255 255 255 / 0.7); border-radius: 999px; font-family: Satoshi, ui-sans-serif, system-ui, sans-serif; font-size: 0.8125rem; font-weight: 500; color: var(--n-7); background: rgb(250 250 250 / 0.92); box-shadow: 0 0 0 1px var(--n-2); cursor: pointer; transition: background-color 160ms var(--ease-out), transform 160ms var(--ease-out); } .ds-play:hover { background: #fff; } .ds-play:active { transform: scale(0.97); } .ds-play:focus-visible { outline: 2px solid var(--n-7); outline-offset: 3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Measured Showroom",
+    "overview": "A monochrome product-marketing world (catalog id `digital-design-canon-monochrome-product-marketing`) where each ad is treated like a product on a plinth: a 9:16 screen set on a soft radial ground, with its proof in a hairline-ruled panel beside it. The interface itself is gray from #fafafa paper to #111 ink; every saturated pixel on the page belongs to the creatives. Satoshi in two weights carries everything in sentence case, and numbers are always tabular.\n\nDensity is calm and even. Cases sit in an equal two-column grid with no hero case, so the eye compares like with like. Depth is quiet and physical: white surfaces lifted by a one-pixel ring and a long, low ambient shadow, and gray grounds lit from above by radial gradients. A single chartreuse accent marks the moments that matter (the primary action, the account-average marker, the case you navigated to) and nothing else.",
+    "keyCharacteristics": [
+      "Neutral-only chrome; color comes from the work.",
+      "Creatives framed as 9:16 screens on radial light grounds.",
+      "Hairline-ruled metric panels with tabular numerals and parenthetical deltas.",
+      "Ghost buttons by default; one solid ink primary with a chartreuse dot.",
+      "Ring-plus-ambient shadows instead of borders on lifted surfaces.",
+      "Soft rise-in motion on a long ease-out curve."
+    ],
+    "rules": [
+      { "name": "The Work Is The Color Rule", "body": "The interface never introduces a hue of its own beyond chartreuse. Saturated color on a page must come from an ad creative.", "section": "colors" },
+      { "name": "The Four Signals Rule", "body": "Chartreuse appears only as a small dot or marker, never as a fill, text color, or background panel, and only where it marks action, benchmark, or arrival.", "section": "colors" },
+      { "name": "The Two Weights Rule", "body": "Only 400 and 500 exist. Hierarchy comes from size, tracking, and the ink-versus-muted color split, never from bold.", "section": "typography" },
+      { "name": "The Sentence Case Rule", "body": "Headings, buttons, tags, and table heads are sentence case. No uppercase labels, no letter-spaced small caps.", "section": "typography" },
+      { "name": "The Tabular Figures Rule", "body": "Every number that can be compared (metrics, deltas, days, counts) is set in tabular numerals.", "section": "typography" },
+      { "name": "The Ring Not Border Rule", "body": "Lifted surfaces are edged with a 1px spread shadow, not a border. Borders are reserved for controls (buttons, tags) and structural rules.", "section": "elevation" },
+      { "name": "The Lit Ground Rule", "body": "A creative or a showcase panel sits on a radial gradient that is brightest near the top, never on a flat fill.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep chrome on the neutral scale (#fafafa paper to #111 ink) and let creatives supply color.",
+      "Do frame every creative as a 9:16 screen on a top-lit radial ground.",
+      "Do set every comparable number in tabular numerals, with account-relative deltas in parentheses at a smaller, muted size.",
+      "Do edge lifted white surfaces with a 1px hairline ring shadow and give lift with a long negative-spread ambient shadow.",
+      "Do default to ghost buttons; reserve the solid ink button with its chartreuse dot for the contact action.",
+      "Do give peer cases equal size and weight in an even grid."
+    ],
+    "donts": [
+      "Don't use chartreuse as a fill, text color, or surface; it is a dot or marker only.",
+      "Don't introduce weights beyond 400 and 500, or uppercase, letter-spaced labels.",
+      "Don't single out one case with a larger card or hero treatment when cases are peers.",
+      "Don't place a creative on a flat fill or without its screen frame.",
+      "Don't add hues to UI chrome (colored badges, tinted panels, gradient text)."
+    ]
+  }
+}

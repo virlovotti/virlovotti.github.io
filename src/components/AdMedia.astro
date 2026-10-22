@@ -9,59 +9,131 @@ interface Props {
 const { media, name } = Astro.props;
 ---
 
-<div class="ad-media">
+<div class="screen" data-screen>
   {
-    media ? (
-      media.kind === "image" ? (
-        <img
-          class="ad-media__asset"
-          src={media.src}
-          alt={name}
-          width="360"
-          height="640"
-          loading="lazy"
-        />
-      ) : (
+    media?.kind === "image" && (
+      <img
+        class="screen__asset"
+        src={media.src}
+        alt={`Ad creative for “${name}”`}
+        width="1080"
+        height="1920"
+        loading="lazy"
+        decoding="async"
+      />
+    )
+  }
+  {
+    media?.kind === "video" && (
+      <>
         <video
-          class="ad-media__asset"
+          class="screen__asset"
           src={media.src}
-          controls
-          muted
-          playsinline
-          preload="metadata"
           poster={media.poster}
+          preload="none"
+          playsinline
+          aria-label={`Video ad “${name}”`}
+          data-video
         />
-      )
-    ) : (
-      <p class="ad-media__placeholder">No media matched</p>
+        <button class="play" type="button" data-play>
+          <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+            <path d="M5 3.5v9l7-4.5-7-4.5Z" fill="currentColor" />
+          </svg>
+          <span>Play ad</span>
+        </button>
+      </>
+    )
+  }
+  {
+    !media && (
+      <div class="screen__empty">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <rect x="3.5" y="3.5" width="17" height="17" rx="3" fill="none" stroke="currentColor" stroke-width="1.5" />
+          <path d="m3.5 15.5 5-5 4 4 2.5-2.5 5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+          <path d="M4 20 20 4" stroke="currentColor" stroke-width="1.5" />
+        </svg>
+        <p>Creative not on file</p>
+      </div>
     )
   }
 </div>
 
 <style>
-  .ad-media {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 12rem;
-    max-height: 28rem;
-    padding: 0.5rem;
-    border-bottom: 1px solid #ccc;
-    background: #eee;
+  .screen {
+    position: relative;
+    aspect-ratio: 9 / 16;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 14px;
+    background: var(--n-1);
+    box-shadow:
+      0 0 0 1px rgb(17 17 17 / 0.08),
+      0 1px 2px rgb(17 17 17 / 0.06),
+      0 12px 32px -12px rgb(17 17 17 / 0.28);
   }
 
-  .ad-media__asset {
+  .screen__asset {
     display: block;
-    max-width: 100%;
-    max-height: 26rem;
-    width: auto;
-    height: auto;
-    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: var(--n-2);
   }
 
-  .ad-media__placeholder {
+  .play {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 32px;
+    padding: 0 12px 0 10px;
+    border: 1px solid rgb(255 255 255 / 0.7);
+    border-radius: 999px;
+    font: inherit;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--n-7);
+    background: rgb(250 250 250 / 0.92);
+    cursor: pointer;
+    transition:
+      background-color 160ms var(--ease-out),
+      transform 160ms var(--ease-out);
+  }
+
+  .play:hover {
+    background: #fff;
+  }
+
+  .play:active {
+    transform: scale(0.97);
+  }
+
+  .screen.is-playing .play {
+    display: none;
+  }
+
+  .screen__empty {
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 10px;
+    height: 100%;
+    padding: 16px;
+    color: var(--n-5);
+    text-align: center;
+    background:
+      repeating-linear-gradient(
+        135deg,
+        transparent 0 11px,
+        rgb(17 17 17 / 0.035) 11px 12px
+      ),
+      var(--n-1);
+  }
+
+  .screen__empty p {
     margin: 0;
-    font-size: 0.875rem;
-    color: #666;
+    font-size: 0.8125rem;
   }
 </style>
