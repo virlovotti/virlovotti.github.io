@@ -1,0 +1,71 @@
+---
+import { ads } from "../ads";
+import AdCard from "../components/AdCard.astro";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>virlovotti.github.io</title>
+  </head>
+  <body>
+    <main class="page">
+      <section class="ad-grid" aria-label="Ad creatives">
+        {ads.map((ad) => <AdCard ad={ad} />)}
+      </section>
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family:
+      system-ui,
+      -apple-system,
+      "Segoe UI",
+      Roboto,
+      sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #222;
+    background: #fff;
+  }
+
+  .page {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .page {
+      padding: 1.5rem;
+    }
+  }
+
+  .ad-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .ad-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .ad-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

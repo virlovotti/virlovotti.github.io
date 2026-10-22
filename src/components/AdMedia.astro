@@ -1,0 +1,67 @@
+---
+import type { AdMedia as AdMediaType } from "../ads";
+
+interface Props {
+  media?: AdMediaType;
+  name: string;
+}
+
+const { media, name } = Astro.props;
+---
+
+<div class="ad-media">
+  {
+    media ? (
+      media.kind === "image" ? (
+        <img
+          class="ad-media__asset"
+          src={media.src}
+          alt={name}
+          width="360"
+          height="640"
+          loading="lazy"
+        />
+      ) : (
+        <video
+          class="ad-media__asset"
+          src={media.src}
+          controls
+          muted
+          playsinline
+          preload="metadata"
+          poster={media.poster}
+        />
+      )
+    ) : (
+      <p class="ad-media__placeholder">No media matched</p>
+    )
+  }
+</div>
+
+<style>
+  .ad-media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 12rem;
+    max-height: 28rem;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ccc;
+    background: #eee;
+  }
+
+  .ad-media__asset {
+    display: block;
+    max-width: 100%;
+    max-height: 26rem;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .ad-media__placeholder {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #666;
+  }
+</style>
