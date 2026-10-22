@@ -1,5 +1,5 @@
 ---
-import { caseId, readings, type Ad } from "../ads";
+import { caseId, leadReading, readings, type Ad } from "../ads";
 import AdMedia from "./AdMedia.astro";
 
 interface Props {
@@ -10,15 +10,18 @@ const { ad } = Astro.props;
 const id = caseId(ad);
 const typeLabel = ad.type === "conversion" ? "Conversion" : "Hook";
 const taxonomy = ad.label.split(" · ");
-const rows = readings(ad);
+const lead = leadReading(ad);
+const rows = readings(ad).slice(1);
 ---
 
-<article class="case" id={id} aria-labelledby={`${id}-name`} data-rise>
+<article class="case" id={id} aria-labelledby={`${id}-name`} data-rise data-case>
   <div class="case__ground">
     <AdMedia media={ad.media} name={ad.name} />
   </div>
 
   <div class="case__body">
+    <a class="case__back" href="#cases">Back to index</a>
+
     <h3 class="case__name" id={`${id}-name`}>{ad.name}</h3>
 
     <div class="case__meta">
@@ -26,6 +29,14 @@ const rows = readings(ad);
       <ul class="case__taxonomy" aria-label="Segment, angle and awareness">
         {taxonomy.map((part) => <li>{part}</li>)}
       </ul>
+    </div>
+
+    <div class="case__lead" aria-label={`Lead metric: ${lead.label}`}>
+      <span class="case__lead-label">{lead.label}</span>
+      <p class="case__lead-value">
+        <span class="num">{lead.value}</span>
+        {lead.delta && <span class="case__lead-delta num">({lead.delta})</span>}
+      </p>
     </div>
 
     <dl class="panel">
@@ -57,22 +68,30 @@ const rows = readings(ad);
 <style>
   .case {
     display: grid;
-    grid-template-columns: minmax(150px, 42%) 1fr;
+    grid-template-columns: minmax(180px, 58%) minmax(0, 1fr);
     gap: clamp(20px, 2.4vw, 32px);
+    align-items: start;
     padding: 12px;
     border-radius: 20px;
     background: var(--n-white);
     box-shadow:
       0 0 0 1px var(--n-2),
       0 1px 2px rgb(17 17 17 / 0.04);
-    scroll-margin-top: 32px;
-    transition: box-shadow 240ms var(--ease-out);
+    scroll-margin-top: 96px;
+    transition:
+      box-shadow 240ms var(--ease-out),
+      background-color 400ms var(--ease-out);
   }
 
-  .case:target {
+  .case:target,
+  .case.is-highlighted {
     box-shadow:
       0 0 0 1px var(--n-7),
       0 18px 40px -20px rgb(17 17 17 / 0.3);
+  }
+
+  .case.is-highlighted {
+    background: linear-gradient(180deg, rgb(166 194 63 / 0.06) 0%, var(--n-white) 120px);
   }
 
   .case__ground {
@@ -85,14 +104,30 @@ const rows = readings(ad);
   }
 
   .case__ground > :global(.screen) {
-    max-width: 236px;
+    max-width: min(100%, 280px);
   }
 
   .case__body {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
     min-width: 0;
-    padding: 12px 12px 12px 0;
+    padding: 8px 12px 12px 0;
+  }
+
+  .case__back {
+    align-self: flex-start;
+    margin: 0 0 12px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--n-5);
+    text-decoration: none;
+    transition: color 140ms var(--ease-out);
+  }
+
+  .case__back:hover {
+    color: var(--n-7);
+    text-decoration: underline;
   }
 
   .case__meta {
@@ -100,10 +135,11 @@ const rows = readings(ad);
     flex-wrap: wrap;
     align-items: center;
     gap: 8px 12px;
-    margin: 14px 0 28px;
+    margin: 14px 0 20px;
   }
 
-  .case:target .tag::before {
+  .case:target .tag::before,
+  .case.is-highlighted .tag::before {
     background: var(--accent);
     box-shadow: 0 0 0 3px rgb(166 194 63 / 0.22);
   }
@@ -125,7 +161,7 @@ const rows = readings(ad);
     margin: 0;
     padding: 0;
     list-style: none;
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     color: var(--n-5);
   }
 
@@ -140,8 +176,38 @@ const rows = readings(ad);
     background: var(--n-4);
   }
 
+  .case__lead {
+    margin: 0 0 8px;
+  }
+
+  .case__lead-label {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--n-5);
+  }
+
+  .case__lead-value {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px;
+    margin: 4px 0 0;
+    font-size: clamp(2rem, 1.5rem + 1.5vw, 2.75rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--n-7);
+  }
+
+  .case__lead-delta {
+    font-size: clamp(0.9375rem, 0.85rem + 0.3vw, 1.0625rem);
+    font-weight: 400;
+    color: var(--n-5);
+  }
+
   .panel {
-    margin: auto 0 0;
+    margin: 0;
   }
 
   .panel__row {
@@ -160,7 +226,7 @@ const rows = readings(ad);
 
   .panel dd {
     margin: 0;
-    font-size: 1rem;
+    font-size: 0.9375rem;
     font-weight: 500;
     color: var(--n-7);
     text-align: right;
@@ -175,7 +241,7 @@ const rows = readings(ad);
   }
 
   .case__note {
-    margin: 4px 0 0;
+    margin: 8px 0 0;
     font-size: 0.8125rem;
     color: var(--n-5);
   }
@@ -187,7 +253,7 @@ const rows = readings(ad);
     }
 
     .case__ground > :global(.screen) {
-      max-width: 200px;
+      max-width: 220px;
     }
 
     .case__body {

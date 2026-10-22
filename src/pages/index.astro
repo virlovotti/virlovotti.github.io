@@ -2,6 +2,7 @@
 import { ads } from "../ads";
 import AdCard from "../components/AdCard.astro";
 import CaseIndex from "../components/CaseIndex.astro";
+import CreativeLightbox from "../components/CreativeLightbox.astro";
 import "../styles/global.css";
 
 const linkedin = "https://www.linkedin.com/in/virginialovotti/";
@@ -13,25 +14,27 @@ const description =
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Virginia · Paid social creative</title>
+    <title>Virginia Lovotti · Creative Strategist</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#fafafa" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preload" href="/fonts/Satoshi-Regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/Satoshi-Medium.woff2" as="font" type="font/woff2" crossorigin />
     <script is:inline>document.documentElement.classList.add("js");</script>
   </head>
   <body>
-    <header class="nav wrap">
-      <a class="nav__mark" href="/" aria-label="Virginia, home">
+    <header class="nav wrap" data-nav>
+      <a class="nav__mark" href="/" aria-label="Virginia Lovotti, home">
         <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true">
           <rect x="0.75" y="0.75" width="18.5" height="18.5" rx="5" fill="none" stroke="currentColor" stroke-width="1.5" />
           <path d="M5.5 6 10 14.5 14.5 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
-        Virginia
+        Virginia Lovotti
       </a>
       <nav class="nav__links" aria-label="Page">
         <a href="#cases">Cases</a>
-        <a href="#reading">How to read the numbers</a>
+        <a class="nav__links-long" href="#reading">How to read the numbers</a>
+        <a class="nav__links-short" href="#reading">How to read</a>
       </nav>
       <a class="btn nav__cta" href={linkedin} rel="me noopener" target="_blank">
         LinkedIn
@@ -44,6 +47,11 @@ const description =
     <main>
       <section class="hero wrap" aria-labelledby="hero-title">
         <div class="hero__copy">
+          <p class="hero__identity">
+            <span class="hero__name">Virginia Lovotti</span>
+            <span class="hero__sep" aria-hidden="true">·</span>
+            <span class="hero__role">Creative Strategist</span>
+          </p>
           <h1 class="hero__title" id="hero-title">
             Paid social, measured<br /> against the account.
           </h1>
@@ -110,8 +118,10 @@ const description =
       </section>
     </main>
 
+    <CreativeLightbox />
+
     <footer class="foot wrap">
-      <span>Virginia · @Virginia</span>
+      <span>Virginia Lovotti</span>
       <span>Dr. Woof figures are relative to the account average. Spend and revenue are withheld.</span>
     </footer>
 
@@ -132,33 +142,167 @@ const description =
         observer.observe(el);
       });
 
-      const videos = [...document.querySelectorAll<HTMLVideoElement>("[data-video]")];
-      document.querySelectorAll<HTMLButtonElement>("[data-play]").forEach((button) => {
-        const screen = button.closest<HTMLElement>("[data-screen]");
-        const video = screen?.querySelector<HTMLVideoElement>("[data-video]");
-        if (!screen || !video) return;
-        button.addEventListener("click", () => {
-          videos.forEach((other) => other !== video && other.pause());
+      const nav = document.querySelector<HTMLElement>("[data-nav]");
+      let navCompact = false;
+      const syncNavCompact = () => {
+        const y = window.scrollY;
+        const next = y > 48 ? true : y < 16 ? false : navCompact;
+        if (next === navCompact) return;
+        navCompact = next;
+        nav?.classList.toggle("is-compact", navCompact);
+      };
+      syncNavCompact();
+      window.addEventListener("scroll", syncNavCompact, { passive: true });
+
+      const highlightCase = (hash: string) => {
+        document.querySelectorAll<HTMLElement>("[data-case].is-highlighted").forEach((el) => {
+          el.classList.remove("is-highlighted");
+        });
+        if (!hash.startsWith("#") || hash === "#cases" || hash === "#reading") return;
+        const target = document.querySelector<HTMLElement>(hash);
+        if (!target?.matches("[data-case]")) return;
+        target.classList.add("is-highlighted");
+        window.setTimeout(() => target.classList.remove("is-highlighted"), 2400);
+      };
+
+      highlightCase(location.hash);
+      window.addEventListener("hashchange", () => highlightCase(location.hash));
+
+      const lightbox = document.querySelector<HTMLElement>("[data-lightbox]");
+      const dialog = lightbox?.querySelector<HTMLElement>("[data-lightbox-dialog]");
+      const stage = lightbox?.querySelector<HTMLElement>("[data-lightbox-stage]");
+      let lastFocus: HTMLElement | null = null;
+      let lightboxVideo: HTMLVideoElement | null = null;
+
+      const focusables = () =>
+        lightbox
+          ? [...lightbox.querySelectorAll<HTMLElement>(
+              'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+            )].filter((el) => !el.hasAttribute("disabled") && el.offsetParent !== null)
+          : [];
+
+      const trapFocus = (event: KeyboardEvent) => {
+        if (event.key !== "Tab" || lightbox?.hidden) return;
+        const items = focusables();
+        if (!items.length) return;
+        const first = items[0];
+        const last = items[items.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      };
+
+      const closeLightbox = () => {
+        if (!lightbox || !stage) return;
+        lightbox.hidden = true;
+        document.body.style.overflow = "";
+        lightboxVideo?.pause();
+        lightboxVideo = null;
+        stage.innerHTML = "";
+        document.removeEventListener("keydown", onLightboxKey);
+        lastFocus?.focus();
+        lastFocus = null;
+      };
+
+      const onLightboxKey = (event: KeyboardEvent) => {
+        if (event.key === "Escape") {
+          event.preventDefault();
+          closeLightbox();
+          return;
+        }
+        trapFocus(event);
+      };
+
+      const openLightbox = (button: HTMLButtonElement) => {
+        if (!lightbox || !stage || !dialog) return;
+        const kind = button.dataset.lightboxKind;
+        const src = button.dataset.lightboxSrc;
+        if (!kind || !src) return;
+
+        lastFocus = button;
+        stage.innerHTML = "";
+
+        if (kind === "image") {
+          const img = document.createElement("img");
+          img.src = src;
+          img.alt = button.getAttribute("aria-label") ?? "Ad creative";
+          img.decoding = "async";
+          stage.append(img);
+        } else {
+          const video = document.createElement("video");
+          video.src = src;
           video.controls = true;
-          video.muted = false;
-          screen.classList.add("is-playing");
+          video.playsInline = true;
+          if (button.dataset.lightboxPoster) video.poster = button.dataset.lightboxPoster;
+          video.setAttribute("aria-label", button.getAttribute("aria-label") ?? "Ad video");
+          stage.append(video);
+          lightboxVideo = video;
           video.play().catch(() => {
             video.muted = true;
             video.play();
           });
-          video.focus();
-        });
+        }
+
+        lightbox.hidden = false;
+        document.body.style.overflow = "hidden";
+        document.addEventListener("keydown", onLightboxKey);
+        dialog.querySelector<HTMLButtonElement>("[data-lightbox-close]")?.focus();
+      };
+
+      document.querySelectorAll<HTMLButtonElement>("[data-lightbox-open]").forEach((button) => {
+        button.addEventListener("click", () => openLightbox(button));
       });
+
+      lightbox?.querySelector("[data-lightbox-dismiss]")?.addEventListener("click", closeLightbox);
+      lightbox?.querySelector("[data-lightbox-close]")?.addEventListener("click", closeLightbox);
     </script>
   </body>
 </html>
 
 <style>
   .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
     display: flex;
     align-items: center;
     gap: 32px;
-    height: 84px;
+    min-height: 84px;
+    padding-block: 18px;
+    background: transparent;
+    transition: box-shadow 200ms var(--ease-out);
+  }
+
+  .nav::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
+    background: rgb(250 250 250 / 0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid transparent;
+    transition:
+      background-color 200ms var(--ease-out),
+      border-color 200ms var(--ease-out),
+      backdrop-filter 200ms var(--ease-out);
+  }
+
+  .nav.is-compact {
+    box-shadow: 0 8px 24px -20px rgb(17 17 17 / 0.35);
+  }
+
+  .nav.is-compact::before {
+    background: var(--n-0);
+    backdrop-filter: none;
+    border-color: var(--n-2);
   }
 
   .nav__mark {
@@ -201,6 +345,28 @@ const description =
     align-items: center;
     gap: clamp(40px, 4.5vw, 72px);
     padding-block: clamp(32px, 5vw, 72px) clamp(56px, 7vw, 96px);
+  }
+
+  .hero__identity {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 8px;
+    margin: 0 0 16px;
+    font-size: clamp(1.0625rem, 0.95rem + 0.35vw, 1.25rem);
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: var(--n-7);
+  }
+
+  .hero__sep {
+    color: var(--n-5);
+  }
+
+  .hero__role {
+    color: var(--n-5);
+    font-weight: 400;
   }
 
   .hero__title {
@@ -357,6 +523,10 @@ const description =
     color: var(--n-5);
   }
 
+  .nav__links-short {
+    display: none;
+  }
+
   .foot {
     display: flex;
     flex-wrap: wrap;
@@ -391,8 +561,39 @@ const description =
   }
 
   @media (max-width: 760px) {
+    .nav {
+      flex-wrap: wrap;
+      align-content: center;
+      gap: 0 12px;
+      height: auto;
+      min-height: 64px;
+      margin-bottom: 0;
+      padding-block: 10px;
+    }
+
+    .nav::before {
+      background: var(--n-0);
+      backdrop-filter: none;
+      border-color: var(--n-2);
+    }
+
     .nav__links {
+      order: 3;
+      flex: 1 1 100%;
+      gap: 20px;
+      margin: 8px 0 0;
+      padding-top: 8px;
+      border-top: 1px solid var(--n-2);
+      font-size: 0.8125rem;
+      background: var(--n-0);
+    }
+
+    .nav__links-long {
       display: none;
+    }
+
+    .nav__links-short {
+      display: inline;
     }
 
     .nav__cta {
