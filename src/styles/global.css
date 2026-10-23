@@ -29,6 +29,9 @@
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --page-max: 1240px;
   --gutter: clamp(20px, 4vw, 40px);
+  --nav-offset: 84px;
+  --scroll-gap: 20px;
+  --scroll-offset: calc(var(--nav-offset) + var(--scroll-gap));
 
   color-scheme: light;
   scrollbar-color: var(--n-3) var(--n-0);

@@ -10,10 +10,9 @@ const conversions = ads.filter((ad) => ad.type === "conversion").length;
 const hooks = ads.length - conversions;
 ---
 
-<figure class="index" aria-labelledby="index-title">
+<figure class="index" aria-labelledby="index-count">
   <figcaption class="index__bar">
-    <span class="index__title" id="index-title">Dr. Woof · paid social</span>
-    <span class="index__count">
+    <span class="index__count" id="index-count">
       <span class="num">{conversions}</span> conversion · <span class="num">{hooks}</span> hook
     </span>
   </figcaption>
@@ -74,16 +73,11 @@ const hooks = ads.length - conversions;
   .index__bar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     gap: 16px;
     padding: 16px 20px;
     border-bottom: 1px solid var(--n-2);
     font-size: 0.875rem;
-  }
-
-  .index__title {
-    font-weight: 500;
-    color: var(--n-7);
   }
 
   .index__count {
@@ -204,7 +198,6 @@ const hooks = ads.length - conversions;
     }
 
     .index__head,
-    .index__count,
     .index__type,
     .index__days {
       display: none;

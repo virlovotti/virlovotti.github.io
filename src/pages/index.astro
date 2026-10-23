@@ -53,9 +53,8 @@ const description =
             <span class="hero__role">Creative Strategist</span>
           </p>
           <h1 class="hero__title" id="hero-title">
-            Paid social, measured<br /> against the account.
+            Latest Work
           </h1>
-          <p class="hero__deck">Seven Dr. Woof ads, each judged against the account average.</p>
           <div class="hero__actions">
             <a class="btn btn--primary" href={linkedin} rel="me noopener" target="_blank">
               <span class="btn__dot" aria-hidden="true"></span>
@@ -79,7 +78,7 @@ const description =
         <dl class="key__items">
           <div>
             <dt class="key__delta"><span class="num">2.33 (+75%)</span></dt>
-            <dd>The figure in parentheses is the difference from the Dr. Woof account average.</dd>
+            <dd>The figure in parentheses is the difference from the account average.</dd>
           </div>
           <div>
             <dt>Days on air</dt>
@@ -92,15 +91,7 @@ const description =
         </dl>
       </section>
 
-      <section class="cases wrap" id="cases" aria-labelledby="cases-title">
-        <header class="cases__head">
-          <h2 class="section-title" id="cases-title">Seven cases from one account</h2>
-          <p>
-            Five ads built to convert and two built to stop the scroll. Each one is judged on the job it was
-            made for.
-          </p>
-        </header>
-
+      <section class="cases wrap" id="cases" aria-label="Cases">
         <div class="cases__grid">
           {ads.map((ad) => <AdCard ad={ad} />)}
 
@@ -121,8 +112,7 @@ const description =
     <CreativeLightbox />
 
     <footer class="foot wrap">
-      <span>Virginia Lovotti</span>
-      <span>Dr. Woof figures are relative to the account average. Spend and revenue are withheld.</span>
+      <span>Virginia Lovotti · 2026</span>
     </footer>
 
     <script>
@@ -143,6 +133,29 @@ const description =
       });
 
       const nav = document.querySelector<HTMLElement>("[data-nav]");
+      const syncNavOffset = () => {
+        if (!nav) return;
+        document.documentElement.style.setProperty("--nav-offset", `${nav.offsetHeight}px`);
+      };
+      const scrollInset = () => {
+        const offset = parseFloat(
+          getComputedStyle(document.documentElement).getPropertyValue("--scroll-offset"),
+        );
+        return Number.isFinite(offset) ? offset : (nav?.offsetHeight ?? 84) + 20;
+      };
+
+      const scrollToHash = (hash = location.hash, behavior: ScrollBehavior = "auto") => {
+        if (!hash || hash === "#") return;
+        const target = document.querySelector<HTMLElement>(hash);
+        if (!target) return;
+        const top = Math.max(0, window.scrollY + target.getBoundingClientRect().top - scrollInset());
+        window.scrollTo({ top, behavior });
+      };
+
+      syncNavOffset();
+      if (nav) new ResizeObserver(syncNavOffset).observe(nav);
+      scrollToHash(location.hash);
+
       let navCompact = false;
       const syncNavCompact = () => {
         const y = window.scrollY;
@@ -165,8 +178,29 @@ const description =
         window.setTimeout(() => target.classList.remove("is-highlighted"), 2400);
       };
 
+      const onHashChange = () => {
+        requestAnimationFrame(() => {
+          const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          scrollToHash(location.hash, reduced ? "auto" : "smooth");
+          highlightCase(location.hash);
+        });
+      };
+
+      document.addEventListener("click", (event) => {
+        const link = (event.target as Element | null)?.closest?.('a[href^="#"]');
+        if (!(link instanceof HTMLAnchorElement)) return;
+        const hash = link.getAttribute("href");
+        if (!hash || hash === "#") return;
+        if (link.pathname !== location.pathname) return;
+        if (!document.querySelector(hash)) return;
+        event.preventDefault();
+        if (location.hash !== hash) history.pushState(null, "", hash);
+        onHashChange();
+      });
+
       highlightCase(location.hash);
-      window.addEventListener("hashchange", () => highlightCase(location.hash));
+      window.addEventListener("hashchange", onHashChange);
+      window.addEventListener("popstate", onHashChange);
 
       const lightbox = document.querySelector<HTMLElement>("[data-lightbox]");
       const dialog = lightbox?.querySelector<HTMLElement>("[data-lightbox-dialog]");
@@ -409,6 +443,7 @@ const description =
     gap: 40px;
     padding-block: 32px;
     border-block: 1px solid var(--n-2);
+    scroll-margin-top: var(--scroll-offset);
   }
 
   .key__title {
@@ -460,6 +495,7 @@ const description =
 
   .cases {
     padding-block: clamp(80px, 10vw, 136px) clamp(64px, 8vw, 112px);
+    scroll-margin-top: var(--scroll-offset);
   }
 
   .cases__head {

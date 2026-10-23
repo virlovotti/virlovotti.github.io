@@ -112,6 +112,10 @@ export const ads: Ad[] = [
     purchases: "18",
     ctr: "1.29%",
     daysOnAir: "26",
+    media: {
+      kind: "image",
+      src: "/ads/week-33-small-wide-calf.jpg",
+    },
   },
   {
     type: "conversion",
