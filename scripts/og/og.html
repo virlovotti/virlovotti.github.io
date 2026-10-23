@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      @font-face {
+        font-family: "Satoshi";
+        src: url("../../public/fonts/Satoshi-Regular.woff2") format("woff2");
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "Satoshi";
+        src: url("../../public/fonts/Satoshi-Medium.woff2") format("woff2");
+        font-weight: 500;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+      }
+
+      body {
+        position: relative;
+        font-family: Satoshi, ui-sans-serif, system-ui, sans-serif;
+        font-weight: 400;
+        color: #333;
+        background: #fafafa;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .copy {
+        position: absolute;
+        inset: 56px auto 56px 64px;
+        width: 500px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .mark {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        color: #111;
+      }
+
+      .title {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        margin: 0;
+        transform: translateY(-50%);
+        font-size: 60px;
+        font-weight: 500;
+        line-height: 1.04;
+        letter-spacing: -0.035em;
+        color: #111;
+      }
+
+      .title span {
+        display: block;
+        color: #636363;
+      }
+
+      .deck {
+        margin: 24px 0 0;
+        max-width: 25ch;
+        font-size: 24px;
+        line-height: 1.4;
+        letter-spacing: -0.01em;
+        color: #636363;
+      }
+
+      .key {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: auto;
+        padding-top: 20px;
+        border-top: 1px solid #e6e6e6;
+        font-size: 17px;
+        color: #636363;
+      }
+
+      .key::before {
+        content: "";
+        flex: none;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #a6c23f;
+        box-shadow: 0 0 0 3px rgb(166 194 63 / 0.22);
+      }
+
+      .key b {
+        font-weight: 500;
+        color: #111;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .stage {
+        position: absolute;
+        top: 32px;
+        bottom: 32px;
+        left: 612px;
+        right: -40px;
+        border-radius: 28px;
+        background:
+          radial-gradient(90% 70% at 40% 0%, #fff 0%, rgb(255 255 255 / 0) 70%),
+          radial-gradient(120% 100% at 50% 100%, #e4e4e4 0%, #f2f2f2 60%);
+        box-shadow: 0 0 0 1px #e6e6e6;
+        overflow: hidden;
+      }
+
+      .row {
+        position: absolute;
+        top: 50%;
+        left: 36px;
+        display: flex;
+        gap: 20px;
+        transform: translateY(-50%);
+      }
+
+      .case {
+        width: 156px;
+        flex: none;
+      }
+
+      .screen {
+        display: block;
+        width: 156px;
+        height: 277px;
+        border-radius: 14px;
+        object-fit: cover;
+        background: #f2f2f2;
+        box-shadow:
+          0 0 0 1px rgb(17 17 17 / 0.08),
+          0 1px 2px rgb(17 17 17 / 0.06),
+          0 12px 32px -12px rgb(17 17 17 / 0.28);
+      }
+
+      .name {
+        margin: 16px 0 0;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 1.25;
+        letter-spacing: -0.01em;
+        color: #111;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .metric {
+        margin: 4px 0 0;
+        font-size: 14px;
+        color: #636363;
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+
+      .metric b {
+        font-weight: 500;
+        color: #111;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="copy">
+      <div class="mark">
+        <svg viewBox="0 0 20 20" width="26" height="26" aria-hidden="true">
+          <rect
+            x="0.75"
+            y="0.75"
+            width="18.5"
+            height="18.5"
+            rx="5"
+            fill="#fff"
+            stroke="#111"
+            stroke-width="1.5"
+          />
+          <path
+            d="M5.5 6 10 14.5 14.5 6"
+            fill="none"
+            stroke="#111"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        virlovotti.github.io
+      </div>
+
+      <h1 class="title">
+        Virginia Lovotti
+        <span>Creative Strategist</span>
+      </h1>
+    </div>
+
+    <div class="stage">
+      <div class="row">
+        <figure class="case" style="margin: 0">
+          <img class="screen" src="../../public/ads/the-sign.jpg" alt="" />
+          <p class="name">The Sign Your Legs Were Waiting For</p>
+          <p class="metric">ROAS <b>2.33</b> (+75%)</p>
+        </figure>
+        <figure class="case" style="margin: 0">
+          <img
+            class="screen"
+            src="../../public/ads/week-37-precision-sizing-v1.jpg"
+            alt=""
+          />
+          <p class="name">Precision Sizing</p>
+          <p class="metric">ROAS <b>3.27</b> (+146%)</p>
+        </figure>
+        <figure class="case" style="margin: 0">
+          <img class="screen" src="../../public/ads/the-shower-v1.jpg" alt="" />
+          <p class="name">The Shower</p>
+          <p class="metric">CTR <b>2.02%</b> (+57%)</p>
+        </figure>
+        <figure class="case" style="margin: 0">
+          <img
+            class="screen"
+            src="../../public/ads/panic-attack-hook-3.jpg"
+            alt=""
+          />
+          <p class="name">Panic Attack V2</p>
+          <p class="metric">Hook rate <b>42%</b></p>
+        </figure>
+      </div>
+    </div>
+  </body>
+</html>
