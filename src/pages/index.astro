@@ -6,18 +6,63 @@ import CreativeLightbox from "../components/CreativeLightbox.astro";
 import "../styles/global.css";
 
 const linkedin = "https://www.linkedin.com/in/virginialovotti/";
+const site = Astro.site ?? new URL("https://virlovotti.github.io");
+const canonicalURL = new URL(Astro.url.pathname, site);
+const title = "Virginia Lovotti · Creative Strategist";
 const description =
-  "A selection of winning paid social ads for DTC brands.";
+  "Paid social creative portfolio for DTC brands—winning ads, performance metrics vs. account benchmarks, and case studies by Virginia Lovotti.";
+const ogImage = new URL("/og.png", site);
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  name: title,
+  description,
+  url: canonicalURL.href,
+  inLanguage: "en-US",
+  mainEntity: {
+    "@type": "Person",
+    name: "Virginia Lovotti",
+    jobTitle: "Creative Strategist",
+    url: site.href,
+    sameAs: [linkedin],
+  },
+};
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Virginia Lovotti · Creative Strategist</title>
+    <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL.href} />
     <meta name="theme-color" content="#fafafa" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Virginia Lovotti" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:image" content={ogImage.href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Virginia Lovotti — Creative Strategist portfolio" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage.href} />
+    <meta name="twitter:image:alt" content="Virginia Lovotti — Creative Strategist portfolio" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
     <link rel="preload" href="/fonts/Satoshi-Regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/Satoshi-Medium.woff2" as="font" type="font/woff2" crossorigin />
     <script is:inline>document.documentElement.classList.add("js");</script>
