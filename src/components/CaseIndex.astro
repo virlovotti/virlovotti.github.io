@@ -6,18 +6,9 @@ interface Props {
 }
 
 const { ads } = Astro.props;
-const conversions = ads.filter((ad) => ad.type === "conversion").length;
-const hooks = ads.length - conversions;
 ---
 
-<figure class="index" aria-labelledby="index-count">
-  <figcaption class="index__bar">
-    <span class="index__source">Paid social · one account</span>
-    <span class="index__count" id="index-count">
-      <span class="num">{conversions}</span> conversion · <span class="num">{hooks}</span> hook
-    </span>
-  </figcaption>
-
+<figure class="index">
   <div class="index__head" aria-hidden="true">
     <span>Ad</span>
     <span>Type</span>
@@ -72,26 +63,6 @@ const hooks = ads.length - conversions;
       0 0 0 1px var(--n-2),
       0 2px 4px rgb(17 17 17 / 0.03),
       0 32px 64px -32px rgb(17 17 17 / 0.28);
-  }
-
-  .index__bar {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 6px 16px;
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--n-2);
-    font-size: 0.875rem;
-  }
-
-  .index__source {
-    font-weight: 500;
-    color: var(--n-7);
-  }
-
-  .index__count {
-    color: var(--n-5);
   }
 
   .index__delta.is-better {
@@ -209,10 +180,6 @@ const hooks = ads.length - conversions;
     .index__row {
       grid-template-columns: minmax(0, 1fr) auto;
       padding: 0 16px;
-    }
-
-    .index__bar {
-      padding: 14px 16px;
     }
 
     .index__head,
