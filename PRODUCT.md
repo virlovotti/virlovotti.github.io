@@ -22,22 +22,22 @@ Astro, static output suitable for GitHub Pages (`virlovotti.github.io`).
 
 ## Product Purpose
 
-A web portfolio that presents Virginia’s paid social work as evidence-backed case studies. Success means a hiring evaluator can grasp her approach, see real ad artifacts and metrics, and leave with confidence in her performance creative ability—starting with Dr. Woof as the first featured case.
+A web portfolio that presents Virginia’s paid social work as evidence-backed case studies. Success means a hiring evaluator can grasp her approach, see real ad artifacts and metrics, and leave with confidence in her performance creative ability—starting with one account as the first featured case.
 
 ## Positioning
 
-Case studies lead with **account-relative performance** (ROAS, CPA, CTR, hook rate, days on air) and **creative taxonomy** (segment · angle · awareness), not generic “campaign recap” prose. The site treats ads as measurable products: conversion winners and scroll-stopping hooks are distinct card types with rules for what to show and what to omit (e.g. no spend/revenue on the Dr. Woof surface).
+Case studies lead with **account-relative performance** (ROAS, CPA, CTR, hook rate, days on air) and **creative taxonomy** (segment · angle · awareness), not generic “campaign recap” prose. The site treats ads as measurable products: conversion winners and scroll-stopping hooks are distinct card types with rules for what to show and what to omit (e.g. no spend/revenue on this account's surface).
 
 ## Operating Context
 
 - **Deploy:** GitHub Pages from this repository.
 - **Content workflow:** Case data and designer notes live in repo content (e.g. `content/ads.md`); media in `public/ads/`.
-- **First case:** Dr. Woof ads portfolio (dated Oct 19, 2026 in source notes), authored as @Virginia.
+- **First case:** one account ads portfolio (dated Oct 19, 2026 in source notes), authored as @Virginia.
 - **Evaluation scene:** Desktop-first review is likely; mobile should remain readable for link sharing.
 
 ## Capabilities and Constraints
 
-**Confirmed (Dr. Woof case):**
+**Confirmed (one account case):**
 
 - Two card types: **conversion** (five ads, priority-ordered; “The Sign” is headline) and **hook** (scroll-stop focus, visible “Hook” label).
 - Metrics display rules: percentages in parentheses vs account average; days on air only (no date ranges); hide spend and revenue.
@@ -46,7 +46,7 @@ Case studies lead with **account-relative performance** (ROAS, CPA, CTR, hook ra
 
 **Product scope:**
 
-- Multi-case portfolio over time; Dr. Woof is the first featured case, not the only planned surface.
+- Multi-case portfolio over time; one account is the first featured case, not the only planned surface.
 
 **Undecided / open:**
 
@@ -64,7 +64,7 @@ Case studies lead with **account-relative performance** (ROAS, CPA, CTR, hook ra
 
 | Asset                                             | Path                           |
 | ------------------------------------------------- | ------------------------------ |
-| Dr. Woof case copy, metrics tables, display rules | `content/ads.md`               |
+| one account case copy, metrics tables, display rules | `content/ads.md`            |
 | Ad creatives (image/video)                        | `public/ads/`                  |
 | Layout reference (visual intent)                  | `content/layout-reference.png` |
 

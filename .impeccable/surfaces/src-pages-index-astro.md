@@ -9,7 +9,7 @@ related_targets: []
 
 Scope: `src/pages/index.astro`, the portfolio homepage. Mode: **Persuade**. A hiring evaluator should leave ready to contact Virginia on LinkedIn (https://www.linkedin.com/in/virginialovotti/).
 
-Audience and job: recruiters and employers scanning paid social proof. Content: the seven Dr. Woof ads in `src/ads.ts`, each presented as its own case with **equal weight**. Source order is kept. The Conversion or Hook tag stays visible, and The Sign gets no headline treatment. Display rules from PRODUCT.md hold: account-relative percentages in parentheses, days on air only, no spend or revenue.
+Audience and job: recruiters and employers scanning paid social proof. Content: the seven ads from one account in `src/ads.ts`, each presented as its own case with **equal weight**. Source order is kept. The Conversion or Hook tag stays visible, and The Sign gets no headline treatment. Display rules from PRODUCT.md hold: account-relative percentages in parentheses, days on air only, no spend or revenue.
 
 Build path: code-led (project default).
 

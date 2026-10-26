@@ -1,5 +1,5 @@
 ---
-import { caseId, leadReading, thumbnail, type Ad } from "../ads";
+import { caseId, deltaTone, leadReading, thumbnail, type Ad } from "../ads";
 
 interface Props {
   ads: Ad[];
@@ -12,6 +12,7 @@ const hooks = ads.length - conversions;
 
 <figure class="index" aria-labelledby="index-count">
   <figcaption class="index__bar">
+    <span class="index__source">Paid social · one account</span>
     <span class="index__count" id="index-count">
       <span class="num">{conversions}</span> conversion · <span class="num">{hooks}</span> hook
     </span>
@@ -28,6 +29,7 @@ const hooks = ads.length - conversions;
     {
       ads.map((ad) => {
         const lead = leadReading(ad);
+        const tone = deltaTone(lead);
         const thumb = thumbnail(ad);
         return (
           <li>
@@ -47,7 +49,9 @@ const hooks = ads.length - conversions;
                 <span>
                   <span class="index__label">{lead.label}</span> <span class="num">{lead.value}</span>
                 </span>
-                {lead.delta && <span class="index__delta num"> ({lead.delta})</span>}
+                {lead.delta && (
+                  <span class={`index__delta num${tone ? ` is-${tone}` : ""}`}> ({lead.delta})</span>
+                )}
               </span>
               <span class="index__days num">{ad.daysOnAir}</span>
             </a>
@@ -72,16 +76,30 @@ const hooks = ads.length - conversions;
 
   .index__bar {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: flex-end;
-    gap: 16px;
+    justify-content: space-between;
+    gap: 6px 16px;
     padding: 16px 20px;
     border-bottom: 1px solid var(--n-2);
     font-size: 0.875rem;
   }
 
+  .index__source {
+    font-weight: 500;
+    color: var(--n-7);
+  }
+
   .index__count {
     color: var(--n-5);
+  }
+
+  .index__delta.is-better {
+    color: var(--delta-better);
+  }
+
+  .index__delta.is-worse {
+    color: var(--delta-worse);
   }
 
   .index__head,

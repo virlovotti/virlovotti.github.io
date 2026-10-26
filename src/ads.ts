@@ -27,7 +27,44 @@ export type HookAd = {
 
 export type Ad = ConversionAd | HookAd;
 
-export type Reading = { label: string; value: string; delta?: string };
+export type BetterWhen = "higher" | "lower";
+
+export type Reading = {
+  label: string;
+  value: string;
+  delta?: string;
+  /** Which direction is good for this metric, vs the account average. */
+  betterWhen?: BetterWhen;
+};
+
+/** Which direction is better for each metric label. */
+const BETTER_WHEN: Record<string, BetterWhen> = {
+  ROAS: "higher",
+  CTR: "higher",
+  "Hook rate": "higher",
+  Purchases: "higher",
+  CPA: "lower",
+};
+
+const withTone = (reading: Reading): Reading => {
+  const betterWhen = BETTER_WHEN[reading.label];
+  return betterWhen ? { ...reading, betterWhen } : reading;
+};
+
+/**
+ * Whether a delta is better or worse than the account average, judged by the
+ * metric's direction rather than the raw sign. Returns undefined when there is
+ * no delta to compare.
+ */
+export function deltaTone(reading: Reading): "better" | "worse" | undefined {
+  if (!reading.delta || !reading.betterWhen) return undefined;
+  const delta = reading.delta.trim();
+  const isPositive = /^\+/.test(delta);
+  const isNegative = /^[−-]/.test(delta);
+  if (!isPositive && !isNegative) return undefined;
+  const positiveIsBetter = reading.betterWhen === "higher";
+  return isPositive === positiveIsBetter ? "better" : "worse";
+}
 
 export const caseId = (ad: Ad) =>
   ad.name
@@ -63,9 +100,9 @@ export function readings(ad: Ad): Reading[] {
       { label: "CPA", ...splitDelta(ad.cpa) },
       { label: "Purchases", ...splitDelta(ad.purchases) },
       { label: "CTR", ...splitDelta(ad.ctr) },
-    ];
+    ].map(withTone);
   }
-  return [labelledMetric(ad.mainMetric), countMetric(ad.volume)];
+  return [labelledMetric(ad.mainMetric), countMetric(ad.volume)].map(withTone);
 }
 
 export const leadReading = (ad: Ad): Reading => readings(ad)[0];

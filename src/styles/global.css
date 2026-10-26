@@ -25,6 +25,8 @@
   --n-6: #333333;
   --n-7: #111111;
   --accent: #a6c23f;
+  --delta-better: #5e7d12;
+  --delta-worse: #b4443d;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --page-max: 1240px;
