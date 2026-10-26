@@ -3,6 +3,8 @@ import { ads } from "../ads";
 import AdCard from "../components/AdCard.astro";
 import CaseIndex from "../components/CaseIndex.astro";
 import CreativeLightbox from "../components/CreativeLightbox.astro";
+import ExternalArrow from "../components/ExternalArrow.astro";
+import { CASE_STUDIES_URL } from "../config";
 import "../styles/global.css";
 
 const linkedin = "https://www.linkedin.com/in/virginialovotti/";
@@ -77,9 +79,14 @@ const structuredData = {
         Virginia Lovotti
       </a>
       <nav class="nav__links" aria-label="Page">
-        <a href="#cases">Cases</a>
+        <a href="#cases">Ad results</a>
         <a class="nav__links-long" href="#reading">How to read the numbers</a>
         <a class="nav__links-short" href="#reading">How to read</a>
+        <a class="nav__external" href={CASE_STUDIES_URL} target="_blank" rel="noopener">
+          Case studies
+          <ExternalArrow />
+          <span class="visually-hidden"> (opens in a new tab)</span>
+        </a>
       </nav>
       <a class="btn nav__cta" href={linkedin} rel="me noopener" target="_blank">
         LinkedIn
@@ -106,7 +113,7 @@ const structuredData = {
               Contact on LinkedIn
             </a>
             <a class="btn" href="#cases">
-              See the cases
+              See the results
               <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
                 <path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
@@ -136,7 +143,7 @@ const structuredData = {
         </dl>
       </section>
 
-      <section class="cases wrap" id="cases" aria-label="Cases">
+      <section class="cases wrap" id="cases" aria-label="Ad results">
         <div class="cases__grid">
           {ads.map((ad) => <AdCard ad={ad} />)}
 
@@ -145,10 +152,17 @@ const structuredData = {
             <p>
               Virginia makes paid social creative that is judged on how it performs. Reach her on LinkedIn.
             </p>
-            <a class="btn btn--primary" href={linkedin} rel="me noopener" target="_blank">
-              <span class="btn__dot" aria-hidden="true"></span>
-              Contact on LinkedIn
-            </a>
+            <div class="close__actions">
+              <a class="btn btn--primary" href={linkedin} rel="me noopener" target="_blank">
+                <span class="btn__dot" aria-hidden="true"></span>
+                Contact on LinkedIn
+              </a>
+              <a class="btn" href={CASE_STUDIES_URL} target="_blank" rel="noopener">
+                Read the case studies
+                <ExternalArrow />
+                <span class="visually-hidden"> (opens in a new tab)</span>
+              </a>
+            </div>
           </aside>
         </div>
       </section>
@@ -213,12 +227,12 @@ const structuredData = {
       window.addEventListener("scroll", syncNavCompact, { passive: true });
 
       const highlightCase = (hash: string) => {
-        document.querySelectorAll<HTMLElement>("[data-case].is-highlighted").forEach((el) => {
+        document.querySelectorAll<HTMLElement>("[data-ad].is-highlighted").forEach((el) => {
           el.classList.remove("is-highlighted");
         });
         if (!hash.startsWith("#") || hash === "#cases" || hash === "#reading") return;
         const target = document.querySelector<HTMLElement>(hash);
-        if (!target?.matches("[data-case]")) return;
+        if (!target?.matches("[data-ad]")) return;
         target.classList.add("is-highlighted");
         window.setTimeout(() => target.classList.remove("is-highlighted"), 2400);
       };
@@ -412,6 +426,23 @@ const structuredData = {
     color: var(--n-7);
   }
 
+  .nav__external {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+  }
+
+  .nav__external svg {
+    flex: none;
+    opacity: 0.75;
+    transition: transform 200ms var(--ease-out);
+  }
+
+  .nav__external:hover svg {
+    transform: translate(2px, -2px);
+  }
+
   .nav__cta {
     height: 38px;
     padding: 0 14px;
@@ -539,6 +570,9 @@ const structuredData = {
   }
 
   .cases {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     padding-block: clamp(80px, 10vw, 136px) clamp(64px, 8vw, 112px);
     scroll-margin-top: var(--scroll-offset);
   }
@@ -602,6 +636,29 @@ const structuredData = {
     max-width: 40ch;
     margin: 0 0 8px;
     color: var(--n-5);
+  }
+
+  .close__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .close__actions .btn {
+    max-width: 100%;
+  }
+
+  @media (max-width: 760px) {
+    .close__actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .close__actions .btn {
+      width: 100%;
+    }
   }
 
   .nav__links-short {
