@@ -84,7 +84,6 @@ const structuredData = {
       </a>
       <nav class="nav__links" aria-label="Page">
         <a href="#cases">Ad results</a>
-        <a class="nav__links-long" href="#reading">How to read the numbers</a>
         <a class="nav__links-short" href="#reading">How to read</a>
         <a href="#case-studies">Case studies</a>
       </nav>
@@ -145,11 +144,8 @@ const structuredData = {
 
       <section class="cases wrap" id="cases" aria-labelledby="cases-title">
         <div class="cases__head" data-rise>
-          <h2 class="section-title" id="cases-title">Seven ads from one account</h2>
-          <p>
-            Five ads built to convert and two built to stop the scroll. Each one is judged on the
-            job it was made for.
-          </p>
+          <h2 class="section-title" id="cases-title">Ad results</h2>
+          <p>Each one is judged on the job it was made for.</p>
         </div>
         <div class="cases__grid">
           {ads.map((ad) => <AdCard ad={ad} />)}
@@ -701,21 +697,23 @@ const structuredData = {
   }
 
   .study__cover {
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 1 / 1;
     overflow: hidden;
     background: var(--n-1);
+  }
+
+  .study__cover :global(picture) {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 
   .study__cover :global(img) {
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    transition: transform 400ms var(--ease-out);
-  }
-
-  .study:hover .study__cover :global(img) {
-    transform: scale(1.03);
+    object-fit: contain;
+    object-position: center;
   }
 
   .study__body {

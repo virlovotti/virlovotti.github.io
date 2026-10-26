@@ -50,8 +50,6 @@ const rows = readings(ad)
       </p>
     </div>
 
-    <p class="case__insight">[TODO: one-line insight]</p>
-
     <dl class="panel">
       {
         rows.map((row) => (
@@ -247,13 +245,6 @@ const rows = readings(ad)
   .case__lead-delta.is-worse,
   .panel__delta.is-worse {
     color: var(--delta-worse);
-  }
-
-  .case__insight {
-    margin: 10px 0 0;
-    font-size: 0.8125rem;
-    line-height: 1.45;
-    color: var(--n-5);
   }
 
   .panel {
